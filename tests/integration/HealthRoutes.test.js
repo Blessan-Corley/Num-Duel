@@ -15,6 +15,16 @@ describe('Integration: Health Routes', () => {
     await gameServer.stop();
   });
 
+  describe('GET /api/ping', () => {
+    test('returns 200 with ok status and pong message', async () => {
+      const res = await request(gameServer.app).get('/api/ping').expect(200);
+
+      expect(res.body.status).toBe('ok');
+      expect(res.body.message).toBe('pong');
+      expect(res.body).toHaveProperty('timestamp');
+    });
+  });
+
   describe('GET /api/health', () => {
     test('returns 200 with healthy status', async () => {
       const res = await request(gameServer.app).get('/api/health').expect(200);

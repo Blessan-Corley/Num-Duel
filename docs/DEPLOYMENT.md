@@ -202,6 +202,7 @@ See `docker-compose.yml` for a local Redis + app setup.
 ## Health monitoring
 
 ```
+GET /api/ping      — lightweight ping (returns 200 without DB/Redis access; best for keeping Render awake)
 GET /api/health    — liveness probe (always returns 200 if process is running)
 GET /api/readiness — readiness probe (200 when store + database are healthy)
 GET /api/stats     — active parties and player counts

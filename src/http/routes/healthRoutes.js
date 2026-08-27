@@ -1,4 +1,14 @@
 function registerHealthRoutes(gameServer) {
+  // A lightweight endpoint for uptime monitoring tools (e.g., UptimeRobot)
+  // to prevent Render cold starts without calling DB or Redis (saving Neon DB compute time).
+  gameServer.app.get('/api/ping', (req, res) => {
+    res.status(200).json({
+      status: 'ok',
+      message: 'pong',
+      timestamp: new Date().toISOString(),
+    });
+  });
+
   gameServer.app.get(
     '/api/health',
     gameServer.withReady(async (req, res) => {
